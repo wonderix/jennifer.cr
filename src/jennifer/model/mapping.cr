@@ -438,6 +438,8 @@ module Jennifer
               %casted_var{key.id} =
                 {% if value[:parsed_type] =~ /String/ %}
                   %var{key.id}
+                {% elsif value[:parsed_type] =~ /Int32/ %}
+                  (%var{key.id}.is_a?(Int64) ? %var{key.id}.to_i32 : %var{key.id})
                 {% else %}
                   (%var{key.id}.is_a?(String) ? self.class.coerce_{{key.id}}(%var{key.id}) : %var{key.id})
                 {% end %}
